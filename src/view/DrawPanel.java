@@ -7,13 +7,14 @@ package view;
 import Model.Point;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
  * @author macbook
  */
 public class DrawPanel extends javax.swing.JPanel {
-    private Point[] points = null;
+    private ArrayList<Point> points = null;
     /**
      * Creates new form DrawPanel
      */
@@ -30,22 +31,22 @@ public class DrawPanel extends javax.swing.JPanel {
         } else {
             grphcs.setColor(Color.RED);
             
-            for (int i = 0; i < points.length; ++i) {
-                if(points[i] == null){
+            for (int i = 0; i < points.size(); ++i) {
+                if(points.get(i) == null){
                     break;
                 } else {
-                    grphcs.drawRect(points[i].getX(), points[i].getY(), 1, 1);
+                    grphcs.drawRect(points.get(i).getX(), points.get(i).getY(), 1, 1);
                 }
                 
             }
             
-            for (int i = 0; i < points.length; ++i) {
-                if(points[i] == null){
+            for (int i = 0; i < points.size(); ++i) {
+                if(points.get(i) == null){
                     break;
                 } else {
                     if( i % 2 == 1){
-                        grphcs.drawLine(points[i-1].getX(), points[i-1].getY(), 
-                                points[i].getX(), points[i].getY());
+                        grphcs.drawLine(points.get(i-1).getX(), points.get(i-1).getY(), 
+                                points.get(i).getX(), points.get(i).getY());
                     }
                 }
             }
@@ -78,7 +79,7 @@ public class DrawPanel extends javax.swing.JPanel {
     /**
      * @param points the points to set
      */
-    public void setPoints(Point[] points) {
+    public void setPoints(ArrayList<Point> points) {
         this.points = points;
     }
 }

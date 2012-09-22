@@ -16,14 +16,15 @@ import javax.swing.JDialog;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private Point[] points = new Point[4];
-    private int count = 0;
+//    private Point[] points = new Point[4];
+//    List<String> list = Arrays.asList("1", "2", "3");
+    private ArrayList<Point> points = new ArrayList<Point>();
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
-        initComponents();      
-        drawPanel1.setPoints(points);
+        initComponents();
+        drawPanel1.setPoints(points); 
     }
 
     /**
@@ -35,9 +36,17 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         drawPanel1 = new view.DrawPanel();
+        panel1 = new java.awt.Panel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         drawPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -49,12 +58,27 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel1.setLayout(drawPanel1Layout);
         drawPanel1Layout.setHorizontalGroup(
             drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 388, Short.MAX_VALUE)
+            .add(0, 343, Short.MAX_VALUE)
         );
         drawPanel1Layout.setVerticalGroup(
             drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 291, Short.MAX_VALUE)
+            .add(0, 298, Short.MAX_VALUE)
         );
+
+        jTabbedPane1.addTab("Пересечение", drawPanel1);
+
+        org.jdesktop.layout.GroupLayout panel1Layout = new org.jdesktop.layout.GroupLayout(panel1);
+        panel1.setLayout(panel1Layout);
+        panel1Layout.setHorizontalGroup(
+            panel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 343, Short.MAX_VALUE)
+        );
+        panel1Layout.setVerticalGroup(
+            panel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 298, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Полигон", panel1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,14 +86,13 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(drawPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(drawPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -77,17 +100,27 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void drawPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanel1MousePressed
-        if (count < 4) {
-            points[count] = new Point(evt.getX(), evt.getY());
-            ++count;        
+        if (points.size() < 4) {
+            points.add(new Point(evt.getX(), evt.getY()));    
             repaint();
         }
-        if (count == 4) {
+        if (points.size() == 4) {
             Intersection intersection = new Intersection();
             intersection.setPoints(points);
             System.out.println(intersection.isIntersection());
         }
     }//GEN-LAST:event_drawPanel1MousePressed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        switch(jTabbedPane1.getSelectedIndex()){
+            case 1: 
+                System.out.println(jTabbedPane1.getSelectedIndex());
+                points = new ArrayList<Point>();
+                drawPanel1.setPoints(points); 
+                break;
+            default: break;
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
 
     /**
      * @param args the command line arguments
@@ -132,5 +165,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.DrawPanel drawPanel1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private java.awt.Panel panel1;
     // End of variables declaration//GEN-END:variables
 }
