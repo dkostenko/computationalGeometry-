@@ -38,6 +38,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         drawPanel1 = new view.DrawPanel();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         panel1 = new java.awt.Panel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,15 +56,34 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Заного");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Результат");
+
         org.jdesktop.layout.GroupLayout drawPanel1Layout = new org.jdesktop.layout.GroupLayout(drawPanel1);
         drawPanel1.setLayout(drawPanel1Layout);
         drawPanel1Layout.setHorizontalGroup(
             drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 343, Short.MAX_VALUE)
+            .add(drawPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jButton2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 167, Short.MAX_VALUE)
+                .add(jLabel1)
+                .add(21, 21, 21))
         );
         drawPanel1Layout.setVerticalGroup(
             drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 298, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, drawPanel1Layout.createSequentialGroup()
+                .addContainerGap(298, Short.MAX_VALUE)
+                .add(drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton2)
+                    .add(jLabel1))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Пересечение", drawPanel1);
@@ -75,7 +96,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 298, Short.MAX_VALUE)
+            .add(0, 333, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Полигон", panel1);
@@ -86,14 +107,12 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTabbedPane1)
         );
 
         pack();
@@ -108,6 +127,8 @@ public class MainFrame extends javax.swing.JFrame {
             Intersection intersection = new Intersection();
             intersection.setPoints(points);
             System.out.println(intersection.isIntersection());
+            jLabel1.setText(intersection.isIntersection()?
+                    "Пересекает":"Не пересекает");
         }
     }//GEN-LAST:event_drawPanel1MousePressed
 
@@ -116,11 +137,19 @@ public class MainFrame extends javax.swing.JFrame {
             case 1: 
                 System.out.println(jTabbedPane1.getSelectedIndex());
                 points = new ArrayList<Point>();
-                drawPanel1.setPoints(points); 
+                drawPanel1.setPoints(points);
+                jLabel1.setText("Результат");
                 break;
             default: break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        points = new ArrayList<Point>();
+        drawPanel1.setPoints(points);
+        jLabel1.setText("Результат");
+        repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +194,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.DrawPanel drawPanel1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private java.awt.Panel panel1;
     // End of variables declaration//GEN-END:variables
