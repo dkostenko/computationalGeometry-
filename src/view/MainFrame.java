@@ -40,7 +40,9 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel1 = new view.DrawPanel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        panel1 = new java.awt.Panel();
+        graham1 = new view.Graham();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,18 +90,42 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Пересечение", drawPanel1);
 
-        org.jdesktop.layout.GroupLayout panel1Layout = new org.jdesktop.layout.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 343, Short.MAX_VALUE)
+        graham1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                graham1MousePressed(evt);
+            }
+        });
+
+        jButton1.setText("Заного");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jButton3.setText("Запустить");
+
+        org.jdesktop.layout.GroupLayout graham1Layout = new org.jdesktop.layout.GroupLayout(graham1);
+        graham1.setLayout(graham1Layout);
+        graham1Layout.setHorizontalGroup(
+            graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(graham1Layout.createSequentialGroup()
+                .add(jButton1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 142, Short.MAX_VALUE)
+                .add(jButton3)
+                .addContainerGap())
         );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 333, Short.MAX_VALUE)
+        graham1Layout.setVerticalGroup(
+            graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, graham1Layout.createSequentialGroup()
+                .addContainerGap(298, Short.MAX_VALUE)
+                .add(graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton1)
+                    .add(jButton3))
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Полигон", panel1);
+        jTabbedPane1.addTab("Полигон", graham1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,7 +133,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .add(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,19 +152,23 @@ public class MainFrame extends javax.swing.JFrame {
         if (points.size() == 4) {
             Intersection intersection = new Intersection();
             intersection.setPoints(points);
-            System.out.println(intersection.isIntersection());
             jLabel1.setText(intersection.isIntersection()?
                     "Пересекает":"Не пересекает");
         }
     }//GEN-LAST:event_drawPanel1MousePressed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        System.out.println(jTabbedPane1.getSelectedIndex());
         switch(jTabbedPane1.getSelectedIndex()){
-            case 1: 
-                System.out.println(jTabbedPane1.getSelectedIndex());
+            case 0: 
                 points = new ArrayList<Point>();
                 drawPanel1.setPoints(points);
                 jLabel1.setText("Результат");
+                break;
+            case 1:
+                points = new ArrayList<Point>();
+                graham1.setPoints(points);
+                jButton3.setEnabled(false);
                 break;
             default: break;
         }
@@ -150,6 +180,21 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("Результат");
         repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void graham1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_graham1MousePressed
+        points.add(new Point(evt.getX(), evt.getY()));
+        if(points.size() == 3){
+            jButton3.setEnabled(true);
+        }
+        repaint();
+    }//GEN-LAST:event_graham1MousePressed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+
+        points = new ArrayList<Point>();
+        graham1.setPoints(points);
+        repaint();
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,9 +239,11 @@ public class MainFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.DrawPanel drawPanel1;
+    private view.Graham graham1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private java.awt.Panel panel1;
     // End of variables declaration//GEN-END:variables
 }

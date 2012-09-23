@@ -12,10 +12,13 @@ public class Point {
 
     private int x;
     private int y;
+    private double r;
+    private double theta;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+        
     }
 
     /**

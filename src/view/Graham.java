@@ -13,48 +13,15 @@ import java.util.ArrayList;
  *
  * @author macbook
  */
-public class DrawPanel extends javax.swing.JPanel {
+public class Graham extends javax.swing.JPanel {
     private ArrayList<Point> points = null;
     /**
-     * Creates new form DrawPanel
+     * Creates new form Graham
      */
-    public DrawPanel() {
+    public Graham() {
         initComponents();
     }
 
-    @Override
-    public void paint(Graphics grphcs) {
-        super.paint(grphcs);
-        
-        if (points == null) {
-            return;
-        } else {
-            grphcs.setColor(Color.RED);
-            
-            for (int i = 0; i < points.size(); ++i) {
-                if(points.get(i) == null){
-                    break;
-                } else {
-                    grphcs.drawRect(points.get(i).getX(), points.get(i).getY(), 
-                            1, 1);
-                }
-                
-            }
-            
-            for (int i = 0; i < points.size(); ++i) {
-                if(points.get(i) == null){
-                    break;
-                } else {
-                    if( i % 2 == 1){
-                        grphcs.drawLine(points.get(i-1).getX(), 
-                                points.get(i-1).getY(), 
-                                points.get(i).getX(), points.get(i).getY());
-                    }
-                }
-            }
-        }       
-    }    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,6 +45,27 @@ public class DrawPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void paint(Graphics grphcs) {
+        super.paint(grphcs);
+        if (points == null){
+            return;
+        } else {
+            grphcs.setColor(Color.RED);
+            for (int i = 0; i < points.size(); ++i) {
+                if(points.get(i) == null){
+                    break;
+                }
+                grphcs.drawRect(points.get(i).getX(), points.get(i).getY(),
+                        1, 1);
+                 System.out.println(Math.atan2(points.get(i).getX(), 
+                         points.get(i).getY()));
+            }
+        }
+    }
+
+    
+    
     /**
      * @param points the points to set
      */
