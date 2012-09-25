@@ -4,23 +4,25 @@
  */
 package Model;
 
+
+import java.util.Comparator;
+
 /**
  *
  * @author macbook
  */
-public class Point {
+public class Point{
 
     private int x;
     private int y;
-    private double r;
-    private double theta;
+    private Double theta;
+    private Double r;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
-        this.theta = Math.atan2(this.x, this.y);
     }
-
+    
     /**
      * @return the x
      */
@@ -36,16 +38,30 @@ public class Point {
     }
 
     /**
+     * @return the theta
+     */
+    public Double getTheta() {
+        return theta;
+    }
+
+    /**
+     * @param theta the theta to set
+     */
+    public void setTheta(Double theta) {
+        this.theta = theta;
+    }
+
+    /**
      * @return the r
      */
-    public double getR() {
+    public Double getR() {
         return r;
     }
 
     /**
-     * @return the theta
+     * @param r the r to set
      */
-    public double getTheta() {
-        return theta;
+    public void setR(Double r) {
+        this.r = r;
     }
 }

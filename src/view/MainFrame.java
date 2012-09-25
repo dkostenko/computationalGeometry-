@@ -1,5 +1,6 @@
 package view;
 
+import Controller.Graham_controller;
 import Model.Point;
 import Controller.Intersection;
 import java.util.ArrayList;
@@ -104,6 +105,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton3.setText("Запустить");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout graham1Layout = new org.jdesktop.layout.GroupLayout(graham1);
         graham1.setLayout(graham1Layout);
@@ -168,6 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
             case 1:
                 points = new ArrayList<Point>();
                 graham1.setPoints(points);
+                graham1.setResult(null);
                 jButton3.setEnabled(false);
                 break;
             default: break;
@@ -182,7 +189,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void graham1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_graham1MousePressed
-        points.add(new Point(evt.getX(), evt.getY()));
+        boolean may_add = true;
+        for(int i=0; i<points.size(); ++i){
+            if(points.get(i).getX() == evt.getX() && 
+                    points.get(i).getY() == evt.getY()){
+                may_add = false;
+                break;
+            }
+        }
+        
+        if (may_add) {
+            points.add(new Point(evt.getX(), evt.getY()));
+        }
+
         if(points.size() == 3){
             jButton3.setEnabled(true);
         }
@@ -193,8 +212,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         points = new ArrayList<Point>();
         graham1.setPoints(points);
+        graham1.setResult(null);
         repaint();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Graham_controller graham = new Graham_controller();
+        graham.setPoints(points);
+        graham1.setResult(graham.doGraham());
+        repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

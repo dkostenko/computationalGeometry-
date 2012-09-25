@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class Graham extends javax.swing.JPanel {
     private ArrayList<Point> points = null;
+    private ArrayList<Point> result = null;
     /**
      * Creates new form Graham
      */
@@ -57,9 +58,18 @@ public class Graham extends javax.swing.JPanel {
                     break;
                 }
                 grphcs.drawRect(points.get(i).getX(), points.get(i).getY(),
-                        1, 1);
-                 System.out.println(Math.atan2(points.get(i).getX(), 
-                         points.get(i).getY()));
+                    1, 1);
+            }
+            
+            if(result != null){
+                grphcs.setColor(Color.BLACK);
+                for (int i = 1; i < points.size(); ++i) {
+                    if(points.get(i) == null){
+                        break;
+                    }
+                    grphcs.drawLine(points.get(i).getX(), points.get(i).getY(),
+                            points.get(i-1).getX(), points.get(i-1).getY());
+                }
             }
         }
     }
@@ -71,5 +81,12 @@ public class Graham extends javax.swing.JPanel {
      */
     public void setPoints(ArrayList<Point> points) {
         this.points = points;
+    }
+
+    /**
+     * @param result the result to set
+     */
+    public void setResult(ArrayList<Point> result) {
+        this.result = result;
     }
 }
