@@ -18,7 +18,7 @@ public class Point {
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
-        
+        this.theta = Math.atan2(this.x, this.y);
     }
 
     /**
@@ -33,5 +33,19 @@ public class Point {
      */
     public int getY() {
         return y;
+    }
+
+    /**
+     * @return the r
+     */
+    public double getR() {
+        return r;
+    }
+
+    /**
+     * @return the theta
+     */
+    public double getTheta() {
+        return theta;
     }
 }

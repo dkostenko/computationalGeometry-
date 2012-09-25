@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        drawPanel1.setPoints(points); 
+        drawPanel1.setPoints(points);
     }
 
     /**
@@ -146,7 +146,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void drawPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawPanel1MousePressed
         if (points.size() < 4) {
-            points.add(new Point(evt.getX(), evt.getY()));    
+            points.add(new Point(evt.getX(), evt.getY()));
             repaint();
         }
         if (points.size() == 4) {
