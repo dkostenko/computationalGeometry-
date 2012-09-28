@@ -209,6 +209,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_graham1MousePressed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        //очистка Грехема
         points = new ArrayList<Point>();
         graham1.setPoints(points);
         graham1.setResult(null);

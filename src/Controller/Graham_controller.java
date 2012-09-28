@@ -57,8 +57,6 @@ public class Graham_controller {
                                          points.get(i).getY()*
                                          points.get(i).getY())
                               );
-//            System.out.println("theta " + i + " = " + points.get(i).getTheta() +
-//                    " --- R = " + points.get(i).getR());
         }
         //Задал полярные углы и радиусы всем точкам относительно той, у которой 
         // минимальный Y
