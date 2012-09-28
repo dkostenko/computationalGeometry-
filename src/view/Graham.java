@@ -62,13 +62,13 @@ public class Graham extends javax.swing.JPanel {
             }
             
             if(result != null){
+                grphcs.setColor(Color.RED);
+                grphcs.drawRect(result.get(0).getX(), result.get(0).getY(),
+                    5, 5);
                 grphcs.setColor(Color.BLACK);
-                for (int i = 1; i < points.size(); ++i) {
-                    if(points.get(i) == null){
-                        break;
-                    }
-                    grphcs.drawLine(points.get(i).getX(), points.get(i).getY(),
-                            points.get(i-1).getX(), points.get(i-1).getY());
+                for(int i=0; i<result.size(); ++i){
+                    grphcs.drawRect(result.get(i).getX(), result.get(i).getY(),
+                    3, 3);
                 }
             }
         }

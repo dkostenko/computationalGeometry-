@@ -59,7 +59,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Заного");
+        jButton2.setText("Заново");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -75,7 +75,7 @@ public class MainFrame extends javax.swing.JFrame {
             .add(drawPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jButton2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 167, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 166, Short.MAX_VALUE)
                 .add(jLabel1)
                 .add(21, 21, 21))
         );
@@ -97,7 +97,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Заного");
+        jButton1.setText("Заново");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -117,7 +117,7 @@ public class MainFrame extends javax.swing.JFrame {
             graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(graham1Layout.createSequentialGroup()
                 .add(jButton1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 141, Short.MAX_VALUE)
                 .add(jButton3)
                 .addContainerGap())
         );
@@ -139,7 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -209,7 +209,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_graham1MousePressed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-
         points = new ArrayList<Point>();
         graham1.setPoints(points);
         graham1.setResult(null);
@@ -219,8 +218,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Graham_controller graham = new Graham_controller();
         graham.setPoints(points);
-        graham1.setResult(graham.doGraham());
-        repaint();
+        ArrayList<Point> result_points = graham.doGraham();
+        if(result_points!=null){
+            graham1.setResult(result_points);
+            repaint();
+        } else {
+            System.out.println("Не достаточно точек!");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

@@ -17,65 +17,90 @@ import java.util.Comparator;
 public class Graham_controller {
     private ArrayList<Point> points = null;
     private ArrayList<Point> s = null;
+//    private ArrayList<Point> additi = null;
 
     public Graham_controller() {
     }
     
-    public ArrayList doGraham(){
-        System.out.println("===" + points.size());
-        
+    public ArrayList doGraham(){        
         s = new ArrayList<Point>();
-        int with_min_y=0;
-        for(int i=1; i<points.size(); ++i){
-            if(points.get(i).getY() < points.get(i-1).getY()){
-                with_min_y=i;
+        
+        int min_by_y = 0;
+        for(int i=0;i<points.size();++i){
+            if(points.get(i).getY() < points.get(min_by_y).getY()){
+                min_by_y = i;
             }
         }
+        //Нашел точку, которая минимальна по Y
+        
+        int n=0;
+        for(int i=0; i<points.size();i++){
+            if(points.get(i).getY() == points.get(min_by_y).getY() && 
+               points.get(i).getX() == points.get(min_by_y).getX()     
+               ){
+                min_by_y = i;
+            }
+        }
+        //Нашел точку, которая такая же по Y, но меньше по X
+        
+        s.add(points.get(min_by_y));
+        
         
         for(int i=0; i<points.size(); ++i){
-            if(points.get(with_min_y).getY() == points.get(i).getY() && 
-                    points.get(i).getX() < points.get(with_min_y).getX() ){
-                with_min_y = i;
+            points.get(i).setTheta(Math.atan2(points.get(i).getX() - 
+                                              points.get(min_by_y).getX(), 
+                                              points.get(i).getY() - 
+                                              points.get(min_by_y).getY())
+                                  );
+            points.get(i).setR(Math.sqrt(points.get(i).getX()*
+                                         points.get(i).getX() + 
+                                         points.get(i).getY()*
+                                         points.get(i).getY())
+                              );
+//            System.out.println("theta " + i + " = " + points.get(i).getTheta() +
+//                    " --- R = " + points.get(i).getR());
+        }
+        //Задал полярные углы и радиусы всем точкам относительно той, у которой 
+        // минимальный Y
+        
+
+        
+        if(points.size()<3){
+            //если точек меньше 3х мы не можем запустить алгоритм
+            return null;
+        }
+        SortComparator mySort = new SortComparator();
+        Collections.sort(points, mySort);
+        //Сортирую по полярному углу
+        
+        
+//        System.out.println("points.size before = "+points.size());
+        
+        for(int i=0; i<points.size(); ++i){
+            if(points.get(i).getTheta() == 0){
+                points.remove(i);
                 break;
             }
         }
         
-        
-      
-        for(int i=0; i<points.size(); ++i){
-            points.get(i).setTheta(Math.atan2(
-                    points.get(i).getX() - points.get(with_min_y).getX(), 
-                    points.get(i).getY() - points.get(with_min_y).getY())
-                    );
-            if(points.get(i).getTheta() == 0){
-                s.add(points.get(i));
-                points.remove(i);
-            }
-        }
+//        System.out.println("points.size after = "+points.size());
         
         
-        SortComparator comparator = new SortComparator();
-        Collections.sort(points, comparator);
         
+        //Начинаем алгоритм
         s.add(points.get(0));
         s.add(points.get(1));
+        s.add(points.get(2));
         
-        for(int i=2; i<points.size(); i++){
-            Point p1 = top();
-            Point p2 = next_to_top();
-            Point p0 = points.get(i);
-            int xl = p0.getX() - p1.getX();
-            int yl = p0.getY() - p1.getY();
-            
-            int xll = p2.getX() - p1.getX();
-            int yll = p2.getY() - p1.getY();
-            
-            while (xl*yll - xll*yl >= 0){
-                s.remove(s.size()-1);
-            }
-            s.add(points.get(i));
+        
+        for (int i = 3; i < points.size(); ++i) {
+                while(BasicFunctions.direction(next_to_top(), 
+                                            top(), 
+                                            points.get(i))<0){
+                    s.remove(s.size()-1);
+                }
+                s.add(points.get(i));
         }
-        
         
         return s;
     }
@@ -85,7 +110,7 @@ public class Graham_controller {
     }
     
     private Point next_to_top(){
-        return s.get(s.size()-1);
+        return s.get(s.size()-2);
     }
 
     /**
