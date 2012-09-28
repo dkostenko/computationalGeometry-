@@ -88,7 +88,10 @@ public class Graham_controller {
         //Начинаем алгоритм
         s.add(points.get(0));
         s.add(points.get(1));
-        s.add(points.get(2));
+        if(points.size()>2){
+            s.add(points.get(2));
+        }
+        
         
         
         for (int i = 3; i < points.size(); ++i) {

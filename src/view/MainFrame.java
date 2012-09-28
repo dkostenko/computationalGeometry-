@@ -189,23 +189,25 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void graham1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_graham1MousePressed
-        boolean may_add = true;
-        for(int i=0; i<points.size(); ++i){
-            if(points.get(i).getX() == evt.getX() && 
-                    points.get(i).getY() == evt.getY()){
-                may_add = false;
-                break;
+        if(graham1.getResult()==null){
+            boolean may_add = true;
+            for(int i=0; i<points.size(); ++i){
+                if(points.get(i).getX() == evt.getX() && 
+                        points.get(i).getY() == evt.getY()){
+                    may_add = false;
+                    break;
+                }
             }
-        }
-        
-        if (may_add) {
-            points.add(new Point(evt.getX(), evt.getY()));
-        }
 
-        if(points.size() == 3){
-            jButton3.setEnabled(true);
+            if (may_add) {
+                points.add(new Point(evt.getX(), evt.getY()));
+            }
+
+            if(points.size() == 3){
+                jButton3.setEnabled(true);
+            }
+            repaint();
         }
-        repaint();
     }//GEN-LAST:event_graham1MousePressed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -213,6 +215,7 @@ public class MainFrame extends javax.swing.JFrame {
         points = new ArrayList<Point>();
         graham1.setPoints(points);
         graham1.setResult(null);
+        jButton3.setEnabled(false);
         repaint();
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -222,6 +225,7 @@ public class MainFrame extends javax.swing.JFrame {
         ArrayList<Point> result_points = graham.doGraham();
         if(result_points!=null){
             graham1.setResult(result_points);
+            jButton3.setEnabled(false);
             repaint();
         } else {
             System.out.println("Не достаточно точек!");

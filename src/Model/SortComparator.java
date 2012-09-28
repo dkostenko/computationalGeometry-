@@ -18,7 +18,14 @@ public class SortComparator implements Comparator<Point> {
         }
         if(p1.getTheta()>p2.getTheta()){
             return 1;
-        } 
+        }
+        if(p1.getTheta()==p2.getTheta()){
+            if(p1.getR()>p2.getR()){
+                return -1;
+            } else{
+               return 1; 
+            }
+        }
         return 0;
     }
 }

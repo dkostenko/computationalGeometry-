@@ -61,18 +61,18 @@ public class Graham extends javax.swing.JPanel {
                     1, 1);
             }
             
-            if(result != null){
+            if(getResult() != null){
                 grphcs.setColor(Color.RED);                
-                for (int i = 1; i < result.size(); ++i) {
-                    grphcs.drawLine(result.get(i).getX(),
-                                    result.get(i).getY(),
-                                    result.get(i-1).getX(),
-                                    result.get(i-1).getY());
+                for (int i = 1; i < getResult().size(); ++i) {
+                    grphcs.drawLine(getResult().get(i).getX(),
+                                    getResult().get(i).getY(),
+                                    getResult().get(i-1).getX(),
+                                    getResult().get(i-1).getY());
                 }
-                grphcs.drawLine(result.get(0).getX(),
-                                result.get(0).getY(),
-                                result.get(result.size()-1).getX(),
-                                result.get(result.size()-1).getY());
+                grphcs.drawLine(getResult().get(0).getX(),
+                                getResult().get(0).getY(),
+                                getResult().get(getResult().size()-1).getX(),
+                                getResult().get(getResult().size()-1).getY());
             }
         }
     }
@@ -91,5 +91,12 @@ public class Graham extends javax.swing.JPanel {
      */
     public void setResult(ArrayList<Point> result) {
         this.result = result;
+    }
+
+    /**
+     * @return the result
+     */
+    public ArrayList<Point> getResult() {
+        return result;
     }
 }
