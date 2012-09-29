@@ -3,6 +3,7 @@ package view;
 import Controller.Graham_controller;
 import Model.Point;
 import Controller.Intersection;
+import Controller.NearestPoints_controller;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 
@@ -44,6 +45,9 @@ public class MainFrame extends javax.swing.JFrame {
         graham1 = new view.Graham();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        nearestPoints1 = new view.NearestPoints();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,7 +86,7 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel1Layout.setVerticalGroup(
             drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, drawPanel1Layout.createSequentialGroup()
-                .addContainerGap(298, Short.MAX_VALUE)
+                .addContainerGap(292, Short.MAX_VALUE)
                 .add(drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton2)
                     .add(jLabel1))
@@ -124,7 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
         graham1Layout.setVerticalGroup(
             graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, graham1Layout.createSequentialGroup()
-                .addContainerGap(298, Short.MAX_VALUE)
+                .addContainerGap(292, Short.MAX_VALUE)
                 .add(graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton1)
                     .add(jButton3))
@@ -133,18 +137,62 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Полигон", graham1);
 
+        nearestPoints1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nearestPoints1MousePressed(evt);
+            }
+        });
+
+        jButton4.setText("Заново");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("показать ближайшие");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton5MousePressed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout nearestPoints1Layout = new org.jdesktop.layout.GroupLayout(nearestPoints1);
+        nearestPoints1.setLayout(nearestPoints1Layout);
+        nearestPoints1Layout.setHorizontalGroup(
+            nearestPoints1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(nearestPoints1Layout.createSequentialGroup()
+                .add(jButton4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 76, Short.MAX_VALUE)
+                .add(jButton5))
+        );
+        nearestPoints1Layout.setVerticalGroup(
+            nearestPoints1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, nearestPoints1Layout.createSequentialGroup()
+                .add(0, 0, Short.MAX_VALUE)
+                .add(jButton4))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, nearestPoints1Layout.createSequentialGroup()
+                .addContainerGap(292, Short.MAX_VALUE)
+                .add(jButton5)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Ближайшие", nearestPoints1);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .add(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTabbedPane1)
+            .add(layout.createSequentialGroup()
+                .add(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
@@ -176,6 +224,12 @@ public class MainFrame extends javax.swing.JFrame {
                 graham1.setPoints(points);
                 graham1.setResult(null);
                 jButton3.setEnabled(false);
+                break;
+            case 2:
+                points = new ArrayList<Point>();
+                nearestPoints1.setPoints(points);
+                nearestPoints1.setResult(null);
+                jButton5.setEnabled(false);
                 break;
             default: break;
         }
@@ -232,6 +286,45 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Начать заново ближайшие точки
+        points = new ArrayList<Point>();
+        nearestPoints1.setPoints(points);
+        nearestPoints1.setResult(null);
+        jButton5.setEnabled(false);
+        repaint();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void nearestPoints1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nearestPoints1MousePressed
+       if(nearestPoints1.getResult()==null){
+            boolean may_add = true;
+            for(int i=0; i<points.size(); ++i){
+                if(points.get(i).getX() == evt.getX() && 
+                        points.get(i).getY() == evt.getY()){
+                    may_add = false;
+                    break;
+                }
+            }
+
+            if (may_add) {
+                points.add(new Point(evt.getX(), evt.getY()));
+            }
+
+            if(points.size() == 2){
+                jButton5.setEnabled(true);
+            }
+            repaint();
+        }
+    }//GEN-LAST:event_nearestPoints1MousePressed
+
+    private void jButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MousePressed
+        NearestPoints_controller nearest = new NearestPoints_controller();
+        nearest.setPoints(points);
+//        nearestPoints1.setResult(result_points);
+        jButton5.setEnabled(false);
+        repaint();
+    }//GEN-LAST:event_jButton5MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -279,7 +372,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private view.NearestPoints nearestPoints1;
     // End of variables declaration//GEN-END:variables
 }
