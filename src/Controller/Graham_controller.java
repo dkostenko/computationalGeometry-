@@ -17,7 +17,6 @@ import java.util.Comparator;
 public class Graham_controller {
     private ArrayList<Point> points = null;
     private ArrayList<Point> s = null;
-//    private ArrayList<Point> additi = null;
 
     public Graham_controller() {
     }
@@ -72,7 +71,6 @@ public class Graham_controller {
         //Сортирую по полярному углу
         
         
-//        System.out.println("points.size before = "+points.size());
         
         for(int i=0; i<points.size(); ++i){
             if(points.get(i).getTheta() == 0){
@@ -81,7 +79,6 @@ public class Graham_controller {
             }
         }
         
-//        System.out.println("points.size after = "+points.size());
         
         
         

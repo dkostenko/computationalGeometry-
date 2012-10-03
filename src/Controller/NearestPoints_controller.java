@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.NearestSort;
 import Model.Point;
 import Model.SortByX;
 import java.util.ArrayList;
@@ -23,9 +24,13 @@ public class NearestPoints_controller {
     public NearestPoints_controller() {
     }
     
-    public ArrayList findNeares(){
+    public ArrayList findNeares(ArrayList points){
         result = new ArrayList<Point>();
         result = points;
+        
+        Collections.sort(points, new NearestSort());
+        
+        
         
         SortByX sortByX = new SortByX();
         Collections.sort(result, sortByX);
