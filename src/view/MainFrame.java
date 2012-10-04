@@ -4,6 +4,7 @@ import Controller.Graham_controller;
 import Model.Point;
 import Controller.Intersection;
 import Controller.NearestPoints_controller;
+import Controller.SegIntersect_controller;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 
@@ -48,6 +49,10 @@ public class MainFrame extends javax.swing.JFrame {
         nearestPoints1 = new view.NearestPoints();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        segmentsIntersect1 = new view.SegmentsIntersect();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,14 +84,14 @@ public class MainFrame extends javax.swing.JFrame {
             .add(drawPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jButton2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 388, Short.MAX_VALUE)
                 .add(jLabel1)
                 .add(21, 21, 21))
         );
         drawPanel1Layout.setVerticalGroup(
             drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, drawPanel1Layout.createSequentialGroup()
-                .addContainerGap(292, Short.MAX_VALUE)
+                .addContainerGap(298, Short.MAX_VALUE)
                 .add(drawPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton2)
                     .add(jLabel1))
@@ -121,14 +126,14 @@ public class MainFrame extends javax.swing.JFrame {
             graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(graham1Layout.createSequentialGroup()
                 .add(jButton1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 141, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 363, Short.MAX_VALUE)
                 .add(jButton3)
                 .addContainerGap())
         );
         graham1Layout.setVerticalGroup(
             graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, graham1Layout.createSequentialGroup()
-                .addContainerGap(292, Short.MAX_VALUE)
+                .addContainerGap(298, Short.MAX_VALUE)
                 .add(graham1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton1)
                     .add(jButton3))
@@ -163,7 +168,7 @@ public class MainFrame extends javax.swing.JFrame {
             nearestPoints1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(nearestPoints1Layout.createSequentialGroup()
                 .add(jButton4)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 76, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 298, Short.MAX_VALUE)
                 .add(jButton5))
         );
         nearestPoints1Layout.setVerticalGroup(
@@ -172,12 +177,64 @@ public class MainFrame extends javax.swing.JFrame {
                 .add(0, 0, Short.MAX_VALUE)
                 .add(jButton4))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, nearestPoints1Layout.createSequentialGroup()
-                .addContainerGap(292, Short.MAX_VALUE)
+                .addContainerGap(298, Short.MAX_VALUE)
                 .add(jButton5)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Ближайшие", nearestPoints1);
+
+        segmentsIntersect1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                segmentsIntersect1MousePressed(evt);
+            }
+        });
+
+        jButton6.setText("Заново");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Наличие пересечения");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Результат");
+
+        org.jdesktop.layout.GroupLayout segmentsIntersect1Layout = new org.jdesktop.layout.GroupLayout(segmentsIntersect1);
+        segmentsIntersect1.setLayout(segmentsIntersect1Layout);
+        segmentsIntersect1Layout.setHorizontalGroup(
+            segmentsIntersect1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(segmentsIntersect1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jButton6)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 109, Short.MAX_VALUE)
+                .add(jLabel2)
+                .add(110, 110, 110)
+                .add(jButton7)
+                .addContainerGap())
+        );
+        segmentsIntersect1Layout.setVerticalGroup(
+            segmentsIntersect1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, segmentsIntersect1Layout.createSequentialGroup()
+                .add(0, 304, Short.MAX_VALUE)
+                .add(segmentsIntersect1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton6)
+                    .add(jButton7)
+                    .add(jLabel2)))
+        );
+
+        jTabbedPane1.addTab("Выметающая", segmentsIntersect1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,9 +247,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jTabbedPane1)
-                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTabbedPane1)
         );
 
         pack();
@@ -230,6 +285,13 @@ public class MainFrame extends javax.swing.JFrame {
                 nearestPoints1.setPoints(points);
                 nearestPoints1.setResult(null);
                 jButton5.setEnabled(false);
+                break;
+            case 3:
+                segmentsIntersect1.setCanRepaint(true);
+                points = new ArrayList<Point>();
+                segmentsIntersect1.setPoints(points);
+                jButton7.setEnabled(false);
+                jLabel2.setText("Результат");
                 break;
             default: break;
         }
@@ -325,6 +387,42 @@ public class MainFrame extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_jButton5MousePressed
 
+    private void segmentsIntersect1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_segmentsIntersect1MousePressed
+        Point p = new Point(evt.getX(), evt.getY());
+        p.setSegment_num((int)points.size()/2);
+        System.out.println("segment = "+p.getSegment_num());
+        points.add(p);
+        if(points.size() == 4){
+            jButton7.setEnabled(true);
+        }
+        if(segmentsIntersect1.isCanRepaint()){
+            repaint();
+        }
+        
+    }//GEN-LAST:event_segmentsIntersect1MousePressed
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        jButton7.setEnabled(false);
+        segmentsIntersect1.setCanRepaint(false);
+        SegIntersect_controller seg = new SegIntersect_controller();
+        seg.setPoints(points);
+        jLabel2.setText(seg.isSegIntersect()?
+                    "Есть":"Нет таких");
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        segmentsIntersect1.setCanRepaint(true);
+        points = new ArrayList<Point>();
+        segmentsIntersect1.setPoints(points);
+        jButton7.setEnabled(false);
+        jLabel2.setText("Результат");
+        repaint();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -374,8 +472,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private view.NearestPoints nearestPoints1;
+    private view.SegmentsIntersect segmentsIntersect1;
     // End of variables declaration//GEN-END:variables
 }
