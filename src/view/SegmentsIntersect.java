@@ -15,20 +15,19 @@ import java.util.ArrayList;
  */
 public class SegmentsIntersect extends javax.swing.JPanel {
     private ArrayList<Point> points = null;
-    private boolean canRepaint;
+    private boolean hasResult;
     /**
      * Creates new form SegmentsIntersect
      */
     public SegmentsIntersect() {
         initComponents();
-        canRepaint = true;
     }
 
     @Override
     public void paint(Graphics grphcs) {
         super.paint(grphcs);
         
-        if (points == null || points.size() == 0 || !canRepaint) {
+        if (points == null || points.size() == 0) {
             return;
         } else {
             grphcs.setColor(Color.RED);
@@ -78,16 +77,16 @@ public class SegmentsIntersect extends javax.swing.JPanel {
     }
 
     /**
-     * @return the canRepaint
+     * @return the hasResult
      */
-    public boolean isCanRepaint() {
-        return canRepaint;
+    public boolean isHasResult() {
+        return hasResult;
     }
 
     /**
-     * @param canRepaint the canRepaint to set
+     * @param hasResult the hasResult to set
      */
-    public void setCanRepaint(boolean canRepaint) {
-        this.canRepaint = canRepaint;
+    public void setHasResult(boolean hasResult) {
+        this.hasResult = hasResult;
     }
 }

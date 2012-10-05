@@ -191,11 +191,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton6.setText("Заново");
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton6MouseClicked(evt);
-            }
-        });
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -287,10 +282,10 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton5.setEnabled(false);
                 break;
             case 3:
-                segmentsIntersect1.setCanRepaint(true);
                 points = new ArrayList<Point>();
                 segmentsIntersect1.setPoints(points);
                 jButton7.setEnabled(false);
+                segmentsIntersect1.setHasResult(false);
                 jLabel2.setText("Результат");
                 break;
             default: break;
@@ -388,38 +383,36 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5MousePressed
 
     private void segmentsIntersect1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_segmentsIntersect1MousePressed
-        Point p = new Point(evt.getX(), evt.getY());
-        p.setSegment_num((int)points.size()/2);
-        System.out.println("segment = "+p.getSegment_num());
-        points.add(p);
-        if(points.size() == 4){
+        if(!segmentsIntersect1.isHasResult()){
+            Point p = new Point(evt.getX(), evt.getY());
+            p.setSegment_num((int)points.size()/2);
+            points.add(p);
+        }
+        if(points.size() > 2 && points.size()%2==0){
             jButton7.setEnabled(true);
+        } else {
+            jButton7.setEnabled(false);
         }
-        if(segmentsIntersect1.isCanRepaint()){
-            repaint();
-        }
+        repaint();
         
     }//GEN-LAST:event_segmentsIntersect1MousePressed
 
-    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-
-    }//GEN-LAST:event_jButton6MouseClicked
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         jButton7.setEnabled(false);
-        segmentsIntersect1.setCanRepaint(false);
         SegIntersect_controller seg = new SegIntersect_controller();
         seg.setPoints(points);
         jLabel2.setText(seg.isSegIntersect()?
                     "Есть":"Нет таких");
+        segmentsIntersect1.setHasResult(true);
+        repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        segmentsIntersect1.setCanRepaint(true);
         points = new ArrayList<Point>();
         segmentsIntersect1.setPoints(points);
         jButton7.setEnabled(false);
         jLabel2.setText("Результат");
+        segmentsIntersect1.setHasResult(false);
         repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
 

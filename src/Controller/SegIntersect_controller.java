@@ -16,6 +16,7 @@ import java.util.Comparator;
  */
 public class SegIntersect_controller {
     private ArrayList<Point> points = null;
+    private ArrayList<Point> addP = null;
     private int[] arrT;
     private int lastElem;
     
@@ -24,7 +25,9 @@ public class SegIntersect_controller {
     
     public boolean isSegIntersect(){
         //инициализируем все необходимое
-        arrT = new int[points.size()];
+        addP = new ArrayList<Point>();
+        addP.addAll(points);
+        arrT = new int[addP.size()];
         for (int i = 0; i < arrT.length; ++i) {
             arrT[i] = -1;
         }
@@ -33,18 +36,18 @@ public class SegIntersect_controller {
         
         System.out.println("Не отсортированный массив точек");
         for (int i = 0; i < arrT.length; ++i) {
-            System.out.println(points.get(i).getInfo());
+            System.out.println(addP.get(i).getInfo());
         }
         System.out.println("=============");
         
         
         //сортируем точки по Х
-        Collections.sort(points, new SortByX());
+        Collections.sort(addP, new SortByX());
 
         
         System.out.println("Отсортированный массив точек");
         for (int i = 0; i < arrT.length; ++i) {
-            System.out.println(points.get(i).getInfo());
+            System.out.println(addP.get(i).getInfo());
         }
         System.out.println("=============");
         
@@ -52,10 +55,10 @@ public class SegIntersect_controller {
         
         
         for (int i = 0; i < arrT.length; ++i) {
-            if(isExistInT(points.get(i).getSegment_num())){
-                removeT(points.get(i).getSegment_num());
+            if(isExistInT(addP.get(i).getSegment_num())){
+                removeT(addP.get(i).getSegment_num());
             } else {
-                insertT(points.get(i).getSegment_num());
+                insertT(addP.get(i).getSegment_num());
             }
             
             for (int j = 1; j < arrT.length; ++j) {
@@ -83,13 +86,12 @@ public class SegIntersect_controller {
             }
             System.out.println();
             System.out.println("=============");
-            return false;
         }
         
         
         
         
-        return true;
+        return false;
     }
     
     private void insertT(int s){
@@ -121,12 +123,12 @@ public class SegIntersect_controller {
     
     private Point[] getSegmentByNum(int num){
         Point[] seg = new Point[2];
-        for (int i = 0; i < points.size(); ++i) {
-            if(points.get(i).getSegment_num() == num){
+        for (int i = 0; i < addP.size(); ++i) {
+            if(addP.get(i).getSegment_num() == num){
                 if(seg[0]==null){
-                    seg[0] = points.get(i); 
+                    seg[0] = addP.get(i); 
                 } else {
-                    seg[1] = points.get(i);
+                    seg[1] = addP.get(i);
                 }
             }
         }
