@@ -388,7 +388,9 @@ public class MainFrame extends javax.swing.JFrame {
             p.setSegment_num((int)points.size()/2);
             points.add(p);
         }
-        if(points.size() > 2 && points.size()%2==0){
+        if(points.size() > 2 && 
+           points.size()%2==0 &&
+           !segmentsIntersect1.isHasResult()){
             jButton7.setEnabled(true);
         } else {
             jButton7.setEnabled(false);
@@ -402,7 +404,7 @@ public class MainFrame extends javax.swing.JFrame {
         SegIntersect_controller seg = new SegIntersect_controller();
         seg.setPoints(points);
         jLabel2.setText(seg.isSegIntersect()?
-                    "Есть":"Нет таких");
+                    "Есть хотя бы одно пересечение":"Нет пересечений");
         segmentsIntersect1.setHasResult(true);
         repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
