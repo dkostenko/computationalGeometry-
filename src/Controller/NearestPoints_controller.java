@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Model.NearestSort;
 import Model.Point;
 import Model.SortByX;
 import java.util.ArrayList;
@@ -17,29 +16,31 @@ import java.util.Collections;
 public class NearestPoints_controller {
 
     private ArrayList<Point> points = null;
-    private ArrayList<Point> result = null;
-    private int[]X;
-    private int[]Y;
     
     public NearestPoints_controller() {
     }
     
-    public ArrayList findNeares(ArrayList points){
-        result = new ArrayList<Point>();
-        result = points;
-        
-        Collections.sort(points, new NearestSort());
+    public ArrayList findNeares(){
+        //Сортируем точки по Х
+        Collections.sort(points, new SortByX()); 
         
         
+        System.out.println("all points");
+        for (int i = 0; i < points.size(); ++i) {
+            System.out.println(points.get(i).getInfo());
+        }
+        System.out.println("===================");
         
-        SortByX sortByX = new SortByX();
-        Collections.sort(result, sortByX);
         
         
         
-        X = new int[points.size()];
-        Y = new int[points.size()];
-        return result;
+
+
+        
+        //NearestPoints_controller.findNearPoints(points);
+        
+
+        return null;
     }
 
     /**
@@ -49,5 +50,44 @@ public class NearestPoints_controller {
         this.points = points;
     }
     
+    public static ArrayList findNearPoints(ArrayList<Point> points){
+        if(points.size()>3){
+            ArrayList<Point> leftSide = new ArrayList<Point>();
+            for (int i = 0; i < points.size()/2; ++i) {
+                leftSide.add(points.get(i));
+            }
+
+            ArrayList<Point> rightSide = new ArrayList<Point>();
+            for (int i = points.size()/2; i < points.size(); ++i) {
+                rightSide.add(points.get(i));
+            }        
+
+
+            System.out.println("left points");
+            for (int i = 0; i < leftSide.size(); ++i) {
+                System.out.println(leftSide.get(i).getInfo());
+            }
+            System.out.println("===================");
+
+
+            System.out.println("right points");
+            for (int i = 0; i < rightSide.size(); ++i) {
+                System.out.println(rightSide.get(i).getInfo());
+            }
+            System.out.println("===================");
+
+
+            System.out.println("leftSide.size() = "+leftSide.size());
+            System.out.println("rightSide.size() = "+rightSide.size());
+            
+            NearestPoints_controller.findNearPoints(leftSide);
+            NearestPoints_controller.findNearPoints(rightSide);
+        } else {
+            if(points.size()==2){
+            }
+        }
+                
+        return null;
+    }
     
 }

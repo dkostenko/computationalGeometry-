@@ -156,9 +156,9 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton5.setText("показать ближайшие");
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton5MousePressed(evt);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -374,14 +374,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nearestPoints1MousePressed
 
-    private void jButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MousePressed
-        NearestPoints_controller nearest = new NearestPoints_controller();
-        nearest.setPoints(points);
-//        nearestPoints1.setResult(result_points);
-        jButton5.setEnabled(false);
-        repaint();
-    }//GEN-LAST:event_jButton5MousePressed
-
     private void segmentsIntersect1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_segmentsIntersect1MousePressed
         if(!segmentsIntersect1.isHasResult()){
             Point p = new Point(evt.getX(), evt.getY());
@@ -417,6 +409,14 @@ public class MainFrame extends javax.swing.JFrame {
         segmentsIntersect1.setHasResult(false);
         repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        NearestPoints_controller nea = new NearestPoints_controller();
+        nea.setPoints(points);
+        nea.findNeares();
+        jButton5.setEnabled(false);
+        repaint();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

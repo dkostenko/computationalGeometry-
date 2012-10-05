@@ -18,7 +18,6 @@ public class SegIntersect_controller {
     private ArrayList<Point> points = null;
     private ArrayList<Point> addP = null;
     private int[] arrT;
-    private int lastElem;
     
     public SegIntersect_controller() {
     }
@@ -27,15 +26,14 @@ public class SegIntersect_controller {
         //инициализируем все необходимое
         addP = new ArrayList<Point>();
         addP.addAll(points);
-        arrT = new int[addP.size()];
+        arrT = new int[addP.size()+1];
         for (int i = 0; i < arrT.length; ++i) {
             arrT[i] = -1;
         }
-        lastElem = 0;
         
         
         System.out.println("Не отсортированный массив точек");
-        for (int i = 0; i < arrT.length; ++i) {
+        for (int i = 0; i < addP.size(); ++i) {
             System.out.println(addP.get(i).getInfo());
         }
         System.out.println("=============");
@@ -46,7 +44,7 @@ public class SegIntersect_controller {
 
         
         System.out.println("Отсортированный массив точек");
-        for (int i = 0; i < arrT.length; ++i) {
+        for (int i = 0; i < addP.size(); ++i) {
             System.out.println(addP.get(i).getInfo());
         }
         System.out.println("=============");
@@ -54,7 +52,7 @@ public class SegIntersect_controller {
         
         
         
-        for (int i = 0; i < arrT.length; ++i) {
+        for (int i = 0; i < addP.size(); ++i) {
             if(isExistInT(addP.get(i).getSegment_num())){
                 removeT(addP.get(i).getSegment_num());
             } else {
@@ -80,12 +78,12 @@ public class SegIntersect_controller {
                 }
             }
             
-            System.out.println("масив Т на шаге i="+i);
-            for (int j = 0; j < arrT.length; j++) {
-                System.out.print(arrT[j]+", ");
-            }
-            System.out.println();
-            System.out.println("=============");
+//            System.out.println("масив Т на шаге i="+i);
+//            for (int j = 0; j < arrT.length; j++) {
+//                System.out.print(arrT[j]+", ");
+//            }
+//            System.out.println();
+//            System.out.println("=============");
         }
         
         
@@ -95,7 +93,34 @@ public class SegIntersect_controller {
     }
     
     private void insertT(int s){
-        arrT[lastElem++]=s;
+        System.out.println("СУПЕР МАССИВ");
+        System.out.print("для точки "+s +" имеем:");
+        for (int i = 0; i < arrT.length; i++) {
+           if(arrT[i]==-1){
+               break;
+           }
+           System.out.print(arrT[i] +", "); 
+        }
+        System.out.println();
+        System.out.println("=============");
+        
+        
+        int i;
+        for (i = 0; i < addP.size(); ++i) {
+            if(arrT[i]==-1 || addP.get(s).getY() < addP.get(arrT[i]).getY()){
+                break;
+            }
+        }
+        
+        for (int j = addP.size()-1; j >= i; --j) {
+            if(arrT[j]!=-1){
+                arrT[j+1]=arrT[j];
+            }
+        }
+        
+        
+        
+        arrT[i]=s;
     }
     
     private void removeT(int s){
@@ -109,7 +134,6 @@ public class SegIntersect_controller {
         for(int j=i;j<arrT.length-1; ++j){
             arrT[j] = arrT[j+1];
         }
-        --lastElem;
     }
     
     private boolean isExistInT(int s){
