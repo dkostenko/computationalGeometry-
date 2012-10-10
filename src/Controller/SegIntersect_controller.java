@@ -92,22 +92,10 @@ public class SegIntersect_controller {
         return false;
     }
     
-    private void insertT(int s){
-        System.out.println("СУПЕР МАССИВ");
-        System.out.print("для точки "+s +" имеем:");
-        for (int i = 0; i < arrT.length; i++) {
-           if(arrT[i]==-1){
-               break;
-           }
-           System.out.print(arrT[i] +", "); 
-        }
-        System.out.println();
-        System.out.println("=============");
-        
-        
+    private void insertT(int s){     
         int i;
         for (i = 0; i < addP.size(); ++i) {
-            if(arrT[i]==-1 || addP.get(s).getY() < addP.get(arrT[i]).getY()){
+            if(arrT[i]==-1 || addP.get(s).getY() > addP.get(arrT[i]).getY()){
                 break;
             }
         }
@@ -121,6 +109,18 @@ public class SegIntersect_controller {
         
         
         arrT[i]=s;
+        
+        
+        System.out.println("СУПЕР МАССИВ");
+        System.out.print("после вложения прямой "+s +" имеем:");
+        for (i = 0; i < arrT.length; i++) {
+           if(arrT[i]==-1){
+               break;
+           }
+           System.out.print(arrT[i] +", "); 
+        }
+        System.out.println();
+        System.out.println("=============");
     }
     
     private void removeT(int s){

@@ -25,7 +25,7 @@ public class Point{
     }
     
     public String getInfo(){
-        return "X="+this.x+"  Y="+this.y;
+        return "X="+this.x+"  Y="+this.y + "  num="+this.segment_num;
     }
     
     /**
