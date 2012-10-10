@@ -32,11 +32,11 @@ public class SegIntersect_controller {
         }
         
         
-        System.out.println("Не отсортированный массив точек");
-        for (int i = 0; i < addP.size(); ++i) {
-            System.out.println(addP.get(i).getInfo());
-        }
-        System.out.println("=============");
+//        System.out.println("Не отсортированный массив точек");
+//        for (int i = 0; i < addP.size(); ++i) {
+//            System.out.println(addP.get(i).getInfo());
+//        }
+//        System.out.println("=============");
         
         
         //сортируем точки по Х
@@ -53,8 +53,9 @@ public class SegIntersect_controller {
         
         
         for (int i = 0; i < addP.size(); ++i) {
+            boolean doRemove = false;
             if(isExistInT(addP.get(i).getSegment_num())){
-                removeT(addP.get(i).getSegment_num());
+                doRemove = true;
             } else {
                 insertT(addP.get(i).getSegment_num());
             }
@@ -65,6 +66,12 @@ public class SegIntersect_controller {
                 }
                 Point[] a = getSegmentByNum(arrT[j]);
                 Point[] b = getSegmentByNum(arrT[j-1]);
+                
+                System.out.println("+++++"+a[0].getInfo());
+                System.out.println("+++++"+a[1].getInfo());
+                System.out.println("+++++"+b[0].getInfo());
+                System.out.println("+++++"+b[1].getInfo());
+                
                 ArrayList<Point> pointsForIntersection = new ArrayList<Point>();
                 pointsForIntersection.add(a[0]);
                 pointsForIntersection.add(a[1]);
@@ -76,6 +83,10 @@ public class SegIntersect_controller {
                 if(intersection.isIntersection()){
                     return true;
                 }
+            }
+            
+            if(doRemove){
+                removeT(addP.get(i).getSegment_num());
             }
             
 //            System.out.println("масив Т на шаге i="+i);
@@ -94,29 +105,33 @@ public class SegIntersect_controller {
     
     private void insertT(int s){     
         int i;
-        for (i = 0; i < addP.size(); ++i) {
-            if(arrT[i]==-1 || addP.get(s).getY() > addP.get(arrT[i]).getY()){
-                break;
+        if(arrT[0]!=-1){
+            Point p1 = addP.get(s);
+
+            for (i = 0; i < addP.size(); ++i) {
+                Point[] a = getSegmentByNum(addP.get(i).getSegment_num());
+
+                System.out.println("|||| addP.get(i).getSegment_num() = "+
+                        addP.get(i).getSegment_num() + "; i=" + i);
+
+                if(BasicFunctions.direction(a[0], p1, a[1])<=0){
+                    break;
+                }
             }
-        }
-        
-        for (int j = addP.size()-1; j >= i; --j) {
-            if(arrT[j]!=-1){
-                arrT[j+1]=arrT[j];
+
+            for (int j = addP.size()-1; j >= i; --j) {
+                if(arrT[j]!=-1){
+                    arrT[j+1]=arrT[j];
+                }
             }
+        } else {
+            i=0;
         }
-        
-        
-        
         arrT[i]=s;
-        
         
         System.out.println("СУПЕР МАССИВ");
         System.out.print("после вложения прямой "+s +" имеем:");
         for (i = 0; i < arrT.length; i++) {
-           if(arrT[i]==-1){
-               break;
-           }
            System.out.print(arrT[i] +", "); 
         }
         System.out.println();
