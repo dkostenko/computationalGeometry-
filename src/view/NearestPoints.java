@@ -37,6 +37,17 @@ public class NearestPoints extends javax.swing.JPanel {
                 grphcs.drawRect(points.get(i).getX(), points.get(i).getY(),
                     1, 1);
             }
+            
+            if(result!=null){
+                grphcs.setColor(Color.BLACK);
+                for (int i = 0; i < result.size(); ++i) {
+                    if(result.get(i) == null){
+                        break;
+                    }
+                    grphcs.drawRect(result.get(i).getX(), result.get(i).getY(),
+                        2, 2);
+                }
+            }
         }
     }
     

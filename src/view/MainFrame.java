@@ -413,8 +413,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         NearestPoints_controller nea = new NearestPoints_controller();
         nea.setPoints(points);
-        nea.findNeares();
+        ArrayList<Point> respoints = nea.findNeares();
+        nearestPoints1.setResult(respoints);
         jButton5.setEnabled(false);
+        
         repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
 
